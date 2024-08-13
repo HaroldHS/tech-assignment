@@ -1,14 +1,24 @@
 package com.example.tech_assignment.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import com.example.tech_assignment.model.UserConstructor;
+import com.example.tech_assignment.services.UserService;
+
+@RestController
 public class MainController {
 
-    @GetMapping(path="/")
-    String login(Model model) {
-        return "index";
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/api/v1/register")
+    @CrossOrigin
+    public String registerUser(@RequestBody UserConstructor userConstructor) {
+        String result = "User has been created: " + userService.registerUser(userConstructor);
+        return result;
     }
 }

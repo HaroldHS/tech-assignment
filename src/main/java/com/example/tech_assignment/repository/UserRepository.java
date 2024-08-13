@@ -2,15 +2,18 @@ package com.example.tech_assignment.repository;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Repository;
 
-import com.example.tech_assignment.entity.User;
+import com.example.tech_assignment.model.User;
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+@Repository
+@EnableJpaRepositories
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByName(String name);
     List<User> findByEmail(String email);
     List<User> findByMobile(String mobile);
-    List<User> findByAddress(String address);
 
 }
