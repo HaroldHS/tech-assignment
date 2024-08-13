@@ -30,3 +30,7 @@ gradlew.bat booRun # windows
 ```
 
 Then, open **http://localhost:8080** in a browser.
+
+### Available API
+* /api/v1/register
+* /api/v1/login

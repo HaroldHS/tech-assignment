@@ -40,4 +40,46 @@ public class User {
         this.password = userPassword;
     }
 
+    public User() {
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

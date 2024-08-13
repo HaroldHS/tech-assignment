@@ -5,8 +5,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.tech_assignment.model.User;
-import com.example.tech_assignment.model.UserConstructor;
 import com.example.tech_assignment.repository.UserRepository;
+import com.example.tech_assignment.request.UserLogin;
+import com.example.tech_assignment.request.UserRegister;
+import com.example.tech_assignment.response.LoginResponse;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,20 +20,43 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public String registerUser(UserConstructor userConstructor){
+    public String registerUser(UserRegister userRegister){
 
         User user = new User(
-        userConstructor.getId(),
-        userConstructor.getName(),
-        userConstructor.getEmail(),
-        userConstructor.getMobile(),
-        userConstructor.getAddress(),
-        this.passwordEncoder.encode(userConstructor.getPassword())
+        userRegister.getId(),
+        userRegister.getName(),
+        userRegister.getEmail(),
+        userRegister.getMobile(),
+        userRegister.getAddress(),
+        this.passwordEncoder.encode(userRegister.getPassword())
         );
 
         userRepository.save(user);
 
-        return userConstructor.getName();
+        return userRegister.getName();
+    }
+
+    @Override
+    public LoginResponse loginUser(UserLogin userLogin) {
+
+        LoginResponse result;
+        User user = userRepository.findByEmail(userLogin.getEmail());
+
+        if(user != null) {
+            String currPassword = userLogin.getPassword();
+            String realPassword = user.getPassword();
+            Boolean matchPassword = this.passwordEncoder.matches(currPassword, realPassword);
+
+            if(matchPassword) {
+                result = new LoginResponse("[+] Valid credential", true);
+            } else {
+                result = new LoginResponse("[-] Invalid credential", false);
+            }
+        } else {
+            result = new LoginResponse("[-] Email is not exist", false);
+        }
+
+        return result;
     }
 
 }

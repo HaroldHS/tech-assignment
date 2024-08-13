@@ -13,7 +13,7 @@ import com.example.tech_assignment.model.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByName(String name);
-    List<User> findByEmail(String email);
-    List<User> findByMobile(String mobile);
+    User findByEmail(String email);
+    User findByMobile(String mobile);
 
 }

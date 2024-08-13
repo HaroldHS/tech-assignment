@@ -1,6 +1,6 @@
-package com.example.tech_assignment.model;
+package com.example.tech_assignment.request;
 
-public class UserConstructor {
+public class UserRegister {
     private Integer id;
     private String name;
     private String email;
@@ -8,7 +8,7 @@ public class UserConstructor {
     private String address;
     private String password;
     
-    public UserConstructor(Integer userId, String userName, String userEmail, String userMobile, String userAddress, String userPassword) {
+    public UserRegister(Integer userId, String userName, String userEmail, String userMobile, String userAddress, String userPassword) {
         this.id = userId;
         this.name = userName;
         this.email = userEmail;
@@ -17,31 +17,31 @@ public class UserConstructor {
         this.password = userPassword;
     }
 
-    public UserConstructor() {
+    public UserRegister() {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getMobile() {
-        return mobile;
+        return this.mobile;
     }
 
     public String getAddress() {
-        return address;
+        return this.address;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setName(String name) {
@@ -66,7 +66,7 @@ public class UserConstructor {
 
     @Override
     public String toString() {
-        return "UserConstructor{" +
+        return "UserRegister{" +
         "user_id=" + this.id +
         ", user_name='" + this.name + "'" + 
         ", user_email='" + this.email + "'" +
