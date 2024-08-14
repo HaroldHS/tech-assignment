@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.tech_assignment.repository.UserRepository;
 import com.example.tech_assignment.request.UserLogin;
 import com.example.tech_assignment.request.UserRegister;
 import com.example.tech_assignment.response.LoginResponse;
@@ -26,7 +29,22 @@ public class MainController {
     private JwtService jwtService;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
+
+
+    @GetMapping("/profile")
+    public ResponseEntity<Object> profile(Authentication auth) {
+        var response = new HashMap<String, Object>();
+        response.put("username", auth.getName());
+        response.put("authorities", auth.getAuthorities());
+
+        var user = userRepository.findByEmail(auth.getName());
+        response.put("user_profile", user);
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping("/api/v1/register")
     public ResponseEntity<Object> registerUser(@RequestBody UserRegister userRegister) {
@@ -56,6 +74,8 @@ public class MainController {
 
                 return ResponseEntity.ok(response);
             } catch (Exception e) {
+                System.out.println("[-] Failed to authenticate: ");
+                e.printStackTrace();
             }
         }
 
