@@ -2,7 +2,7 @@
 
 ### Requirements
 * Java 17
-* MySQL
+* MySQL 8
 
 ### Database Setup
 1. Create a database in the MySQL server via terminal / command prompt
@@ -31,6 +31,8 @@ gradlew.bat booRun # windows
 
 Then, open **http://localhost:8080** in a browser.
 
-### Available API
+### Available API endpoints
 * /api/v1/register
 * /api/v1/login
+* /api/v1/profile
+* /api/v1/update-profile

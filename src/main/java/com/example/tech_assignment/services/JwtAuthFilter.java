@@ -27,9 +27,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private UserJwtService userJwtService;
     
-    @Autowired
-    private UserRepository userRepository;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
@@ -46,7 +43,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
 
             String email = claims.getSubject();
-            // UserInfo user = userRepository.findByEmail(email);
             var user = userJwtService.loadUserByUsername(email);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, null);

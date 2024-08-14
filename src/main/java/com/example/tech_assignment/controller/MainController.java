@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.tech_assignment.repository.UserRepository;
+import com.example.tech_assignment.request.UserDetail;
 import com.example.tech_assignment.request.UserLogin;
 import com.example.tech_assignment.request.UserRegister;
 import com.example.tech_assignment.response.LoginResponse;
@@ -35,7 +36,7 @@ public class MainController {
     private AuthenticationManager authenticationManager;
 
 
-    @GetMapping("/profile")
+    @GetMapping("/api/v1/profile")
     public ResponseEntity<Object> profile(Authentication auth) {
         var response = new HashMap<String, Object>();
         response.put("username", auth.getName());
@@ -43,6 +44,36 @@ public class MainController {
 
         var user = userRepository.findByEmail(auth.getName());
         response.put("user_profile", user);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/api/v1/update-profile")
+    public ResponseEntity<Object> updateProfile(Authentication auth, @RequestBody UserDetail userDetail) {
+
+        var user = userRepository.findByEmail(auth.getName());
+
+        if(userDetail.getName() != null) {
+            user.setName(userDetail.getName());
+        }
+
+        if(userDetail.getEmail() != null) {
+            user.setEmail(userDetail.getEmail());
+        }
+
+        if(userDetail.getMobile() != null) {
+            user.setMobile(userDetail.getMobile());
+        }
+
+        if(userDetail.getAddress() != null) {
+            user.setAddress(userDetail.getAddress());
+        }
+
+        userRepository.save(user);
+
+        var response = new HashMap<String, Object>();
+        response.put("message", new String("Update successful"));
+        response.put("user_profile", user);
+
         return ResponseEntity.ok(response);
     }
 
