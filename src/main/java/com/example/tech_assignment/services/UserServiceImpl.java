@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.tech_assignment.model.User;
+import com.example.tech_assignment.model.UserInfo;
 import com.example.tech_assignment.repository.UserRepository;
 import com.example.tech_assignment.request.UserLogin;
 import com.example.tech_assignment.request.UserRegister;
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String registerUser(UserRegister userRegister){
 
-        User user = new User(
+        UserInfo user = new UserInfo(
         userRegister.getId(),
         userRegister.getName(),
         userRegister.getEmail(),
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     public LoginResponse loginUser(UserLogin userLogin) {
 
         LoginResponse result;
-        User user = userRepository.findByEmail(userLogin.getEmail());
+        UserInfo user = userRepository.findByEmail(userLogin.getEmail());
 
         if(user != null) {
             String currPassword = userLogin.getPassword();

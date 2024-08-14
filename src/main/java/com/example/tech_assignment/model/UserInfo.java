@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserInfo {
 
     @Id
     @Column(name = "user_id", length = 50)
@@ -31,7 +31,7 @@ public class User {
     @Column(name = "user_password", length = 255)
     private String password;
 
-    public User(Integer userId, String userName, String userEmail, String userMobile, String userAddress, String userPassword) {
+    public UserInfo(Integer userId, String userName, String userEmail, String userMobile, String userAddress, String userPassword) {
         this.id = userId;
         this.name = userName;
         this.email = userEmail;
@@ -40,7 +40,7 @@ public class User {
         this.password = userPassword;
     }
 
-    public User() {
+    public UserInfo() {
     }
 
     public String getName() {
